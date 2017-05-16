@@ -93,11 +93,11 @@ class NP_TrimImage extends NucleusPlugin {
 	}
 
 	function getURL() {
-		return 'http://blog.cles.jp/np_cles/category/31/subcatid/15';
+		return 'https://github.com/NucleusCMS/NP_TrimImage';
 	}
 
 	function getVersion() {
-		return '2.4.2';
+		return '2.5';
 	}
 
 	function supportsFeature($what) {return in_array($what,array('SqlTablePrefix','SqlApi'));}
