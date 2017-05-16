@@ -100,14 +100,7 @@ class NP_TrimImage extends NucleusPlugin {
 		return '2.4.2';
 	}
 
-	function supportsFeature($what) {
-		switch ($what) {
-			case 'SqlTablePrefix' :
-				return 1;
-			default :
-				return 0;
-		}
-	}
+	function supportsFeature($what) {return in_array($what,array('SqlTablePrefix','SqlApi'));}
 
 	function getDescription() {
 		return 'Trim image in items, and embed these images.';
@@ -297,16 +290,16 @@ class NP_TrimImage extends NucleusPlugin {
 
 		$res = sql_query($query);
 
-		if (!mysql_num_rows($res))
+		if (!sql_num_rows($res))
 			return FALSE;
 
-		while ($it = mysql_fetch_object($res)) {
+		while ($it = sql_fetch_object($res)) {
 			$this->_parseItem($it, $maxPerItem, $includeImg);
 			
 			if (count($this->imglists) >= $amount)
 				break;
 		}
-		mysql_free_result($res);
+		sql_free_result($res);
 
 		if ($random)
 			shuffle($this->imglists);
@@ -383,7 +376,7 @@ class NP_TrimImage extends NucleusPlugin {
 		$q .= 'icat as catid, iclosed as closed ';
 		$q .= 'FROM '.sql_table('item').' WHERE inumber='.intval($item->itemid);
 		$r = sql_query($q);
-		$it = mysql_fetch_object($r);
+		$it = sql_fetch_object($r);
 		$this->_parseItem($it, $maxAmount, $includeImg);
 
 		if (!$this->imglists) {
