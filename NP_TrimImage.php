@@ -251,7 +251,7 @@ class NP_TrimImage extends NucleusPlugin {
 				$src = $this->createImage($filelist[$i][0], $wsize, $hsize, $point, true);
 			}
 			if (!$src) {
-				$src = htmlspecialchars($CONF['ActionURL'], ENT_QUOTES)
+				$src = hsc($CONF['ActionURL'], ENT_QUOTES)
 						.'?action=plugin&amp;name=TrimImage&amp;type=draw'.'&amp;p='
 						.urlencode($filelist[$i][0]).'&amp;wsize='.$wsize.'&amp;hsize='.$hsize
 						. ($point ? '&amp;pnt=lefttop' : '');
@@ -265,8 +265,8 @@ class NP_TrimImage extends NucleusPlugin {
 			echo '<img src="'.$src.'"'			
 				. ( $wsize ? ' width="'.$wsize.'" '  : '' )
 				. ( $hsize ? ' height="'.$hsize.'" ' : '' )
-				. ' alt="'.htmlspecialchars($title, ENT_QUOTES)
-				. '" title="'.htmlspecialchars($title, ENT_QUOTES).'"/>';
+				. ' alt="'.hsc($title, ENT_QUOTES)
+				. '" title="'.hsc($title, ENT_QUOTES).'"/>';
 			echo "</a>\n";
 		}
 		echo "</div>\n";
@@ -380,7 +380,7 @@ class NP_TrimImage extends NucleusPlugin {
 		$this->_parseItem($it, $maxAmount, $includeImg);
 
 		if (!$this->imglists) {
-			$img_tag = '<img src="'.htmlspecialchars($CONF['ActionURL'], ENT_QUOTES).'?action=plugin&amp;name=TrimImage';
+			$img_tag = '<img src="'.hsc($CONF['ActionURL'], ENT_QUOTES).'?action=plugin&amp;name=TrimImage';
 			$img_tag .= '&amp;type=draw&amp;p=non&amp;wsize='.$wsize.'&amp;hsize='.$hsize.$exq;
 			$img_tag .= '" width="'.$wsize.'" height="'.$hsize.'" />';
 			echo $img_tag;
@@ -391,7 +391,7 @@ class NP_TrimImage extends NucleusPlugin {
 					$src = $this->createImage($img[0], $wsize, $hsize, $point, true);
 				}
 				if (!$src) {
-					$src = htmlspecialchars($CONF['ActionURL'], ENT_QUOTES).'?action=plugin&amp;name=TrimImage&amp;type=draw'.'&amp;p='. urlencode($img[0]) .'&amp;wsize='.$wsize.'&amp;hsize='.$hsize. ($point ? '&amp;pnt=lefttop' : '');
+					$src = hsc($CONF['ActionURL'], ENT_QUOTES).'?action=plugin&amp;name=TrimImage&amp;type=draw'.'&amp;p='. urlencode($img[0]) .'&amp;wsize='.$wsize.'&amp;hsize='.$hsize. ($point ? '&amp;pnt=lefttop' : '');
 				}
 				
 				$title = ($img[2]) ? $img[2] : $img[4];
@@ -401,8 +401,8 @@ class NP_TrimImage extends NucleusPlugin {
 				echo '<img src="'.$src.'" '			
 					. ( $wsize ? 'width="'.$wsize.'" '  : '' )
 					. ( $hsize ? 'height="'.$hsize.'" ' : '' )
-					. ' alt="'.htmlspecialchars($title, ENT_QUOTES)
-					. '" title="'.htmlspecialchars($title, ENT_QUOTES).'" />';
+					. ' alt="'.hsc($title, ENT_QUOTES)
+					. '" title="'.hsc($title, ENT_QUOTES).'" />';
 			}
 		}
 	}
