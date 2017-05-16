@@ -112,7 +112,8 @@ class NP_TrimImage extends NucleusPlugin {
 	function getDescription() {
 		return 'Trim image in items, and embed these images.';
 	}
-			function getEventList() {
+	
+	function getEventList() {
 		return array ('PostAddItem', 'PostUpdateItem', 'PostDeleteItem',);
 	}
 	
