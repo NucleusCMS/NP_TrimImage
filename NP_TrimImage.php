@@ -479,7 +479,7 @@ class NP_TrimImage extends NucleusPlugin {
 				if ($getimagesize = @ GetImageSize($phpThumb->cache_filename)) {
 					header('Content-Type: '.phpthumb_functions :: ImageTypeToMIMEtype($getimagesize[2]));
 				}
-				elseif (eregi('\.ico$', $phpThumb->cache_filename)) {
+				elseif (preg_match('@\.ico$@i', $phpThumb->cache_filename)) {
 					header('Content-Type: image/x-icon');
 				}
 				if ($this->phpThumbParams['config_cache_force_passthru']) {
