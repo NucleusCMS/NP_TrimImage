@@ -79,10 +79,6 @@ define('NP_TRIMIMAGE_FORCE_PASSTHRU', true); //passthru(standard)
 define('NP_TRIMIMAGE_CACHE_MAXAGE', 86400 * 30); // 30days
 define('NP_TRIMIMAGE_PREFER_IMAGEMAGICK', false);
 
-require_once(dirname(__FILE__).'/sharedlibs/sharedlibs.php');
-require_once('phpthumb/phpthumb.functions.php');
-require_once('phpthumb/phpthumb.class.php');
-
 class NP_TrimImage extends NucleusPlugin {
 	function getName() {
 		return 'TrimImage';
@@ -423,6 +419,9 @@ class NP_TrimImage extends NucleusPlugin {
 	}
 
 	function createImage($p, $w, $h, $isLefttop, $cacheCheckOnly = false) {
+		$plg_path = $this->getDirectory();
+		require_once($plg_path.'phpthumb/phpthumb.functions.php');
+		require_once($plg_path.'phpthumb/phpthumb.class.php');
 		$phpThumb = new phpThumb();
 		foreach ($this->phpThumbParams as $paramKey => $paramValue) {
 			$phpThumb->setParameter($paramKey, $paramValue);
