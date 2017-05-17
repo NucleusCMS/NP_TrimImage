@@ -332,11 +332,21 @@ class NP_TrimImage extends NucleusPlugin {
 					$param[$type] = $matches[2][$index];
 				}
 				
+				$MediaDIR = (strpos($CONF['MediaURL'],$CONF['IndexURL'])===0) ? '/'.substr($CONF['MediaURL'],strlen($CONF['IndexURL'])) : false;
+				
 				if( $param['src'] && ( strpos($param['src'], $CONF['MediaURL']) === 0 ) ){
 					$imginfo = substr( $param['src'], strlen($CONF['MediaURL']) )
 					. '|' . $param['width']
 					. '|' . $param['height']
 					. '|' . ( $param['title'] ? $param['tiltle'] : $param['alt']);
+				}
+ 				elseif( $param['src'] && $MediaDIR && ( strpos($param['src'], $MediaDIR) === 0 ) ){
+					$pos = strrpos($param['src'],'/')+1;
+					$imginfo = substr( $param['src'], strlen($MediaDIR) )
+					. '|' . $param['width']
+					. '|' . $param['height']
+					. '|' . ( $param['title'] ? $param['tiltle'] : $param['alt']);
+
 				}
 			} else {
 				return;
