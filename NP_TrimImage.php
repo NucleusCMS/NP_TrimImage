@@ -329,7 +329,7 @@ class NP_TrimImage extends NucleusPlugin {
 			if( preg_match_all('/(src|width|height|alt|title)=\"(.*?)\"/i', $imginfo, $matches) ) {
 				$param = array();
 				foreach( $matches[1] as $index => $type ){
-					$param[$type] = $matches[2][$index];						
+					$param[$type] = $matches[2][$index];
 				}
 				
 				if( $param['src'] && ( strpos($param['src'], $CONF['MediaURL']) === 0 ) ){
@@ -451,9 +451,9 @@ class NP_TrimImage extends NucleusPlugin {
 		$phpThumb->cache_filename = null;
 		$phpThumb->CalculateThumbnailDimensions();
 		$phpThumb->SetCacheFilename();
-		if (file_exists($phpThumb->cache_filename)) {
+		if (is_file($phpThumb->cache_filename)) {
 			$nModified = filemtime($phpThumb->cache_filename);
-			if (time() - $nModified < NP_TRIMIMAGE_CACHE_MAXAGE) {
+			if ($_SERVER['REQUEST_TIME'] - $nModified < NP_TRIMIMAGE_CACHE_MAXAGE) {
 				global $CONF;
 				preg_match('/^'.preg_quote($this->phpThumbParams['config_document_root'], '/').'(.*)$/', $phpThumb->cache_filename, $matches);
 				$fileUrl = $CONF['MediaURL'].$matches[1];
