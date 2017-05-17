@@ -466,6 +466,7 @@ class NP_TrimImage extends NucleusPlugin {
 					&& @ serverVar('SERVER_PROTOCOL')
 				) {
 					header(serverVar('SERVER_PROTOCOL').' 304 Not Modified');
+					exit;
 					return true;
 				}
 				if ($getimagesize = @ GetImageSize($phpThumb->cache_filename)) {
@@ -476,8 +477,10 @@ class NP_TrimImage extends NucleusPlugin {
 				}
 				if ($this->phpThumbParams['config_cache_force_passthru']) {
 					@ readfile($phpThumb->cache_filename);
+					exit;
 				} else {
 					header('Location: '.$fileUrl);
+					exit;
 				}
 				return true;
 			}
@@ -499,6 +502,7 @@ class NP_TrimImage extends NucleusPlugin {
 		// to browser
 		$phpThumb->OutputThumbnail();
 		unset ($phpThumb);
+		exit;
 		return true;
 	}
 
