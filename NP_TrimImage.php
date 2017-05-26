@@ -239,7 +239,7 @@ class NP_TrimImage extends NucleusPlugin {
 		$amount = min($amount, count($filelist));
 		echo '<div>';
 		for ($i = 0; $i < $amount; $i ++) {
-			$itemlink = $this->createGlobalItemLink($filelist[$i][1], '');
+			$itemlink = createItemLink($filelist[$i][1]);
 			echo '<a href="'.$itemlink.'">';
 
 			$src = '';
@@ -485,6 +485,7 @@ class NP_TrimImage extends NucleusPlugin {
 				elseif (preg_match('@\.ico$@i', $phpThumb->cache_filename)) {
 					header('Content-Type: image/x-icon');
 				}
+				
 				if ($this->phpThumbParams['config_cache_force_passthru']) {
 					@ readfile($phpThumb->cache_filename);
 					exit;
@@ -521,27 +522,5 @@ class NP_TrimImage extends NucleusPlugin {
 		if (!$member->isLoggedIn())
 			return 0;
 		return $member->isAdmin();
-	}
-
-	function createGlobalItemLink($itemid, $extra = '') {
-		global $CONF, $manager;
-		$itemid = intval($itemid);
-		if ($CONF['URLMode'] == 'pathinfo') {
-			$link = $CONF['ItemURL'].'/item/'.$itemid;
-		} else {
-			$blogid = getBlogIDFromItemID($itemid);
-			$b_tmp = & $manager->getBlog($blogid);
-			$blogurl = $b_tmp->getURL();
-			if (!$blogurl) {
-				$blogurl = $CONF['IndexURL'];
-			}
-			if (substr($blogurl, -4) != '.php') {
-				if (substr($blogurl, -1) != '/')
-					$blogurl .= '/';
-				$blogurl .= 'index.php';
-			}
-			$link = $blogurl.'?itemid='.$itemid;
-		}
-		return addLinkParams($link, $extra);
 	}
 }
