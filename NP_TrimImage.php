@@ -164,7 +164,8 @@ class NP_TrimImage extends NucleusPlugin {
 			$b = & $manager->getBlog($CONF['DefaultBlog']);
 		}
 		
-		list($amount, $maxPerItem) = explode('/', $amount, 2);
+		if(strpos($amount,'/')!==false) list($amount, $maxPerItem) = explode('/', $amount, 2);
+		else                            $maxPerItem = 0;
 		if (!is_numeric($amount))      $amount = 10;
 		if (!is_numeric($hsize))       $hsize = 80;
 		if (!is_numeric($wsize))       $wsize = 80;
@@ -331,6 +332,10 @@ class NP_TrimImage extends NucleusPlugin {
 				foreach( $matches[1] as $index => $type ){
 					$param[$type] = $matches[2][$index];
 				}
+				if(!isset($param['tiltle'])) $param['tiltle'] = '';
+				if(!isset($param['width']))  $param['width'] = '';
+				if(!isset($param['height'])) $param['height'] = '';
+				if(!isset($param['alt']))    $param['alt'] = '';
 				
 				$MediaDIR = (strpos($CONF['MediaURL'],$CONF['IndexURL'])===0) ? '/'.substr($CONF['MediaURL'],strlen($CONF['IndexURL'])) : false;
 				
@@ -353,7 +358,16 @@ class NP_TrimImage extends NucleusPlugin {
 			}
 		}
 		
-		list ($url, $w, $h, $alt, $ext) = explode("|", $imginfo, 5);
+		if(strpos($imginfo,'|')===false) return;
+		
+		$_ = explode('|', $imginfo, 5);
+		
+		$url = (isset($_[0])) ? $_[0] : '';
+		$w   = (isset($_[1])) ? $_[1] : '';
+		$h   = (isset($_[2])) ? $_[2] : '';
+		$alt = (isset($_[3])) ? $_[3] : '';
+		$ext = (isset($_[4])) ? $_[4] : '';
+		
 		if (!in_array(strtolower(strrchr($url, ".")), $this->fileex))
 			return;
 		if (in_array($url, $this->imgfilename))
