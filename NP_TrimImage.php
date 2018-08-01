@@ -332,7 +332,7 @@ class NP_TrimImage extends NucleusPlugin {
 				foreach( $matches[1] as $index => $type ){
 					$param[$type] = $matches[2][$index];
 				}
-				if(!isset($param['tiltle'])) $param['tiltle'] = '';
+				if(!isset($param['title']))  $param['title'] = '';
 				if(!isset($param['width']))  $param['width'] = '';
 				if(!isset($param['height'])) $param['height'] = '';
 				if(!isset($param['alt']))    $param['alt'] = '';
@@ -343,14 +343,14 @@ class NP_TrimImage extends NucleusPlugin {
 					$imginfo = substr( $param['src'], strlen($CONF['MediaURL']) )
 					. '|' . $param['width']
 					. '|' . $param['height']
-					. '|' . ( $param['title'] ? $param['tiltle'] : $param['alt']);
+					. '|' . ( $param['title'] ? $param['title'] : $param['alt']);
 				}
  				elseif( $param['src'] && $MediaDIR && ( strpos($param['src'], $MediaDIR) === 0 ) ){
 					$pos = strrpos($param['src'],'/')+1;
 					$imginfo = substr( $param['src'], strlen($MediaDIR) )
 					. '|' . $param['width']
 					. '|' . $param['height']
-					. '|' . ( $param['title'] ? $param['tiltle'] : $param['alt']);
+					. '|' . ( $param['title'] ? $param['title'] : $param['alt']);
 
 				}
 			} else {
